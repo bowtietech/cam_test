@@ -173,7 +173,7 @@
         // Make sure we don't start syncopating
         // Do this outside the promise
         if (null != updateThread){
-            updateThread.clearTimeout();
+            clearTimeout(updateThread);
         }
         $.get('/update').then((response) => {
             getLogs();
