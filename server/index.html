@@ -28,6 +28,11 @@
     .card-body {
         padding: 0px;
     }
+
+    .table {
+        margin: 0px;
+        text-align: left;
+    }
 </style>
 
 <body>
@@ -68,6 +73,9 @@
         $('#log-container').html(html);
     }
 
+
+
+
     function getDateTimeString(_unixTime){
         return `${new Date(_unixTime).toLocaleDateString("en-US")} at ${new Date(_unixTime).toLocaleTimeString("en-US")}`
     }
@@ -76,18 +84,12 @@
 
         let tableBody =''
         for (let index in _logs){
-            tableBody += `<tr><td>123</td><td>test message</td></tr>`;
+            tableBody += `<tr><td><span style="color:green;"><b>22223</b></span></td><td>test message</td></tr>`;
         }
 
 
         let html = `
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Timestamp</th>
-                        <th scope="col">Message</th>
-                    </tr>
-                </thead>
+            <table class="table table-borderless table-hover table-dark table-responsive">
                 <tbody>
                 ${tableBody}
                 </tbody>
