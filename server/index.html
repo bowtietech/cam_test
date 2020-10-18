@@ -24,6 +24,10 @@
         right: 15px;
         top: 0px;
     }
+
+    .card-body {
+        padding: 0px;
+    }
 </style>
 
 <body>
@@ -68,15 +72,42 @@
         return `${new Date(_unixTime).toLocaleDateString("en-US")} at ${new Date(_unixTime).toLocaleTimeString("en-US")}`
     }
 
+    function getFormattedLogs(_logs){
+
+        let tableBody =''
+        for (let index in _logs){
+            tableBody += `<tr><td>123</td><td>test message</td></tr>`;
+        }
+
+
+        let html = `
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Timestamp</th>
+                        <th scope="col">Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                ${tableBody}
+                </tbody>
+            </table>`
+
+
+        return html;
+    }
+
     function makeCard(_data) {
         console.log(_data)
+
+        let logHtml = getFormattedLogs(_data)
+
+
         let html = `
             <br><div class="card text-center">
                 <div class="card-header">${_data.metadata.name}</div>
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    ${logHtml}
                 </div>
                 <div class="card-footer text-muted">Last updated on ${getDateTimeString(_data.metadata.updated_at)}</div>
             </div>`
