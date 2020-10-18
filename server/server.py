@@ -1,7 +1,7 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
-import json
+from urllib.parse import urlparse, parse_qs
 from io import BytesIO
-
+import json
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):
 
@@ -20,41 +20,95 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             ]
     }}
 
-    def invalidate_logs(self):
+    camlog = { 'id': 'camera_1', 'data':{
+        'metadata': {
+            'updated_at': 123,
+            'name': 'Kitchen Camera',
+            'location': 'gps_coords',
+            'update_pending': False
+        },
+        'logs':
+        [
+            {'timestamp': 1111,
+             'message': 'updated'}
+        ]
+    }
+    }
+
+
+    ######################
+    # Internal Functions #
+    ######################
+
+    def logs_invalidate_all(self):
         for key in self.logs:
             print(key)
-            self.logs[key].metadata.update_pending = True
+            self.logs[key]['metadata']['update_pending'] = True
 
+    def logs_update(self, _logs):
+        self.logs[_logs['id']] = _logs['data']
+
+    def get_jobs(self, _id):
+
+
+    ################
+    # HTTP Section #
+    ################
+
+    def init_headers_json(self):
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self.end_headers()
+
+    def init_headers_html(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html')
+        self.end_headers()
 
     def do_GET(self):
-        if self.path == '/':
-            self.send_response(200)
-            self.send_header('Content-type', 'text/html')
-            self.end_headers()            
+        
+        # Parse the request path
+        parsedPath = urlparse(self.path)
+        route = parsedPath.path;
+        queries = parse_qs(parsedPath.query)
+
+        # Get the frontend client
+        if route == '/':
+            self.init_headers_html()
             f = open("index.html", "r")
             self.wfile.write(f.read().encode())
 
-        elif self.path == '/logs':
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
+        # Get any log data
+        elif route == '/logs':
+            self.init_headers_json()
             self.wfile.write(json.dumps(self.logs).encode())
 
-        elif self.path == '/update':
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            self.end_headers()
-            self.invalidate_logs()
+        # Update all camera logs
+        elif route == '/update':
+            self.init_headers_json()
+            self.logs_invalidate_all()
             self.wfile.write(json.dumps({'msg': 'ok'}).encode())
 
-        elif self.path == '/jobs':
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
+        # Get any jobs from the queue
+        elif route == '/jobs':
+            if 'id' in queries:
+                job = self.get_job(queries.id)
+                self.init_headers_json()
+                self.wfile.write(json.dumps({'msg': 'ok', 'jobs': job}).encode())
+            else:
+                # Bad Request
+                self.send_response(400)
+                self.end_headers()
+
+        # Route DNE
+        else: 
+            self.send_response(404)
             self.end_headers()
-            self.invalidate_logs()
-            self.wfile.write(json.dumps({'msg': 'ok'}).encode())
+
 
     def do_POST(self):
+        # self.logs_update(self.camlog)
+
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length)
         self.send_response(200)
