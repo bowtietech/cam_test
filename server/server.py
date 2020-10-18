@@ -48,7 +48,13 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
     def logs_update(self, _logs):
         self.logs[_logs['id']] = _logs['data']
 
-    def get_jobs(self, _id):
+    def get_job(self, _id):
+        if _id in self.logs:
+            if self.logs[_id]['metadata']['update_pending'] == True:
+                # I know, I know, multiple returns are bad...
+                return 'send_logs'  
+        # ...but the code is so much cleaner this way.
+        return 'none'
 
 
     ################
@@ -92,7 +98,8 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         # Get any jobs from the queue
         elif route == '/jobs':
             if 'id' in queries:
-                job = self.get_job(queries.id)
+                print(queries)
+                job = self.get_job(queries['id'][0])
                 self.init_headers_json()
                 self.wfile.write(json.dumps({'msg': 'ok', 'jobs': job}).encode())
             else:
