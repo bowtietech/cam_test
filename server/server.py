@@ -20,7 +20,10 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                 'name': 'Loading Dock',
                 'update_pending': True
             },
-            'logs': []
+            'logs': [{
+                'timestamp': time.time(),
+                'message': 'Camera offline'
+            }]
         }
     }
 
@@ -31,7 +34,6 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 
     def logs_invalidate_all(self):
         for key in self.logs:
-            print(key)
             self.logs[key]['metadata']['update_pending'] = True
 
     def logs_update(self, _logs):

@@ -1,8 +1,8 @@
-FROM python:3.5
+FROM python:3.8
 
 VOLUME ["/code"]
 ADD . /code
 WORKDIR /code
 
-EXPOSE 5000
-CMD ["python", "-m", "http.server", "5000"]
+EXPOSE 3000
+CMD ["python", "server.py"]
