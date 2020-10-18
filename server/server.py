@@ -110,5 +110,5 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps({'msg': 'ok'}).encode())
 
 
-httpd = HTTPServer(('localhost', 3000), HTTPRequestHandler)
+httpd = HTTPServer(('0.0.0.0', 3000), HTTPRequestHandler)
 httpd.serve_forever()
