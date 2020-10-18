@@ -25,5 +25,17 @@ This server is written to handle multiple cameras and clients simultaneously.
     - Databases would be used
     - Front end would be reactive (Vue, React, etc.)
     - API would be blueprinted and standardized 
-    
+    - Scroll indication overlay on log card bodies
+    - Actual folder structures for the code
+
 - In the current system, two clients could request and get logs from slightly different times than expected, but the logs are timestamped internally, so shouldn't cause any issues.
+
+
+### References
+
+- Spinner CSS
+    - https://tobiasahlin.com/spinkit/
+- JQuery
+    - 
+- Bootstrap
+    -

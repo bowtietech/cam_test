@@ -11,7 +11,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             'updated_at': 123,
             'name': 'Conference Room',
             'location': 'gps_coords', 
-            'update_pending': False
+            'update_pending': True
         },
         'logs': 
              [
@@ -29,7 +29,19 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             'logs':
             [
                 {'timestamp': 2323,
-                 'message': 'sweet potatoes'}
+                 'message': 'sweet potatoes'},
+                {'timestamp': 2323,
+                 'message': 'sweet potatoes'},
+                {'timestamp': 2323,
+                 'message': 'sweet potatoes'},
+                {'timestamp': 2323,
+                 'message': 'sweet potatoes'},
+                {'timestamp': 2323,
+                 'message': 'sweet potatoes'},
+                {'timestamp': 2323,
+                 'message': 'sweet potatoes'},
+                {'timestamp': 2323,
+                 'message': 'sweet potatoes'},
             ]
         }}
 
