@@ -10,7 +10,7 @@ This server is written to handle multiple cameras and clients simultaneously.
 
 
 
-### Considerations
+### Considerations & Delineations From Instructions
 
 - In a production system, we would:
     - Use authentication with MFA of some kind, likely SSO (Okta, etc.)
@@ -27,9 +27,10 @@ This server is written to handle multiple cameras and clients simultaneously.
     - API would be blueprinted and standardized 
     - Scroll indication overlay on log card bodies
     - Actual folder structures for the code
+    - There would be a POST route explicit for logs instead of root
 
 - In the current system, two clients could request and get logs from slightly different times than expected, but the logs are timestamped internally, so shouldn't cause any issues.
-
+- **IMPORTANT** The user's '/logs' request will complete with whatever data is available, but invalidated if not current (contrary to instructions). Leaving the GET request open that long seemed dirty, dirty. 
 
 ### References
 

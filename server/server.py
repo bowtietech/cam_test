@@ -2,62 +2,27 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 from io import BytesIO
 import json
+import time
 
 class HTTPRequestHandler(BaseHTTPRequestHandler):
 
     logs = {
         'camera_1': {
-        'metadata': {
-            'updated_at': 123,
-            'name': 'Conference Room',
-            'location': 'gps_coords', 
-            'update_pending': True
-        },
-        'logs': 
-             [
-        {'timestamp': 2323,
-        'message' : 'sweet potatoes'}
-            ]
+            'metadata': {
+                'updated_at': time.time(),
+                'name': 'Conference Room',
+                'update_pending': True
+            },
+            'logs': []
         },        
         'camera_2': {
             'metadata': {
-                'updated_at': 123,
+                'updated_at': time.time(),
                 'name': 'Loading Dock',
-                'location': 'gps_coords',
                 'update_pending': True
             },
-            'logs':
-            [
-                {'timestamp': 2323,
-                 'message': 'sweet potatoes'},
-                {'timestamp': 2323,
-                 'message': 'sweet potatoes'},
-                {'timestamp': 2323,
-                 'message': 'sweet potatoes'},
-                {'timestamp': 2323,
-                 'message': 'sweet potatoes'},
-                {'timestamp': 2323,
-                 'message': 'sweet potatoes'},
-                {'timestamp': 2323,
-                 'message': 'sweet potatoes'},
-                {'timestamp': 2323,
-                 'message': 'sweet potatoes'},
-            ]
-        }}
-
-    camlog = { 'id': 'camera_1', 'data':{
-        'metadata': {
-            'updated_at': 123,
-            'name': 'Kitchen Camera',
-            'location': 'gps_coords',
-            'update_pending': False
-        },
-        'logs':
-        [
-            {'timestamp': 1111,
-             'message': 'updated'}
-        ]
-    }
+            'logs': []
+        }
     }
 
 
@@ -143,8 +108,12 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
 
         content_length = int(self.headers['Content-Length'])
         body = self.rfile.read(content_length)
+        data = json.loads(body)
         self.send_response(200)
         self.end_headers()
+
+        print(data)
+
         response = BytesIO()
         response.write(b'This is POST request. ')
         response.write(b'Received: ')
