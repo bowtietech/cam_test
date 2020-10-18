@@ -8,55 +8,71 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"
         integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous">
     </script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    </style>
 </head>
 
-<body>
-    <h2>My Cameras</h2>
-    <a href="#" class="btn btn-primary">Refresh All</a>
+<style>
+    .container {
+        position: relative;
+        margin-top: 1rem;
+    }
 
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+    .btn-refresh {
+        position: absolute;
+        right: 15px;
+        top: 0px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h2>My Cameras</h2>
+        <a href="#" class="btn btn-primary btn-refresh">Refresh All</a>
+
+        <div id='log-container'></div>
+    </div>
 
 </body>
 
 <script>
-    function refreshLogs(){
+    function refreshLogs() {
         $.get('/update').then((response) => {
             console.log(response)
         })
     }
 
-    function getLogs(){
+    function getLogs() {
         $.get('/logs').then((response) => {
             console.log(response)
+            parseLogsToComponent(response);
+        }).catch((err)=>{
+            
         })
     }
 
-    function parseLogsToComponent(){
-
+    function parseLogsToComponent() {
+        $('#log-container').html(makeCard());
     }
 
-    function makeCard(_data){
-let html = `<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>`
+    function makeCard(_data) {
+        let html = `
+            <div class="card text-center">
+                <div class="card-header"> Featured </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+                <div class="card-footer text-muted">2 days ago</div>
+            </div>`
 
-    return html;
+        return html;
     }
 
 
-    $(function (){
+    $(function () {
         console.log("Page Initialized");
 
 
