@@ -9,7 +9,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         'camera_1': {
         'metadata': {
             'updated_at': 123,
-            'name': 'Kitchen Camera',
+            'name': 'Conference Room',
             'location': 'gps_coords', 
             'update_pending': False
         },
@@ -18,7 +18,20 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         {'timestamp': 2323,
         'message' : 'sweet potatoes'}
             ]
-    }}
+        },        
+        'camera_2': {
+            'metadata': {
+                'updated_at': 123,
+                'name': 'Loading Dock',
+                'location': 'gps_coords',
+                'update_pending': True
+            },
+            'logs':
+            [
+                {'timestamp': 2323,
+                 'message': 'sweet potatoes'}
+            ]
+        }}
 
     camlog = { 'id': 'camera_1', 'data':{
         'metadata': {

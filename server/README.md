@@ -24,4 +24,6 @@ This server is written to handle multiple cameras and clients simultaneously.
     - Would document with numpydoc style or equivalent for doc generation and readability
     - Databases would be used
     - Front end would be reactive (Vue, React, etc.)
+    - API would be blueprinted and standardized 
+    
 - In the current system, two clients could request and get logs from slightly different times than expected, but the logs are timestamped internally, so shouldn't cause any issues.
