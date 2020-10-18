@@ -206,7 +206,7 @@
     }
 
     function getDateTimeString(_unixTime) {
-        return `${new Date(_unixTime).toLocaleDateString("en-US")} at ${new Date(_unixTime).toLocaleTimeString("en-US")}`
+        return `${new Date(_unixTime*1000).toLocaleDateString("en-US")} at ${new Date(_unixTime*1000).toLocaleTimeString("en-US")}`
     }
 
     function getFormattedLogs(_logs) {

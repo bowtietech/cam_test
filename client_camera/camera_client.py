@@ -1,5 +1,6 @@
 import requests
 import random
+import json
 import time
 
 # Sleep time between updates
@@ -30,7 +31,7 @@ def randomResponse():
     return {'timestamp': round(time.time()), 'message':responses[random.randint(0, len(responses)-1)]}
 
 def makeLogPost():
-    return {
+    return json.dumps({
         'id':CAMERA_ID,
         'data': {
             'metadata': {
@@ -40,7 +41,7 @@ def makeLogPost():
             },
             'logs': detectionQueue
         }
-    }
+    })
 
 # Preload some detection items
 for i in range(PRELOAD_COUNT):
@@ -81,7 +82,7 @@ while(True):
         print('All jobs complete!\n')
 
     except:
-        print("Connection Error!")
+        print("Connection Error!\n")
 
     time.sleep(SLEEP_TIME_s)
 

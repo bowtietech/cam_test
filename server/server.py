@@ -1,6 +1,5 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
-from io import BytesIO
 import json
 import time
 
@@ -88,7 +87,6 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         # Get any jobs from the queue
         elif route == '/jobs':
             if 'id' in queries:
-                print(queries)
                 job = self.get_job(queries['id'][0])
                 self.init_headers_json()
                 self.wfile.write(json.dumps({'msg': 'ok', 'jobs': job}).encode())
@@ -102,23 +100,12 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
 
-
     def do_POST(self):
-        # self.logs_update(self.camlog)
-
-        content_length = int(self.headers['Content-Length'])
-        body = self.rfile.read(content_length)
-        data = json.loads(body)
+        data = json.loads(self.rfile.read(int(self.headers['Content-Length'])))
+        self.logs_update(data)
         self.send_response(200)
         self.end_headers()
-
-        print(data)
-
-        response = BytesIO()
-        response.write(b'This is POST request. ')
-        response.write(b'Received: ')
-        response.write(body)
-        self.wfile.write(response.getvalue())
+        self.wfile.write(json.dumps({'msg': 'ok'}).encode())
 
 
 httpd = HTTPServer(('localhost', 3000), HTTPRequestHandler)
