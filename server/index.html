@@ -208,12 +208,17 @@
         return `${new Date(_unixTime*1000).toLocaleDateString("en-US")} at ${new Date(_unixTime*1000).toLocaleTimeString("en-US")}`
     }
 
+    function getTerminalTimestamp(_unixTime) {
+        var date = new Date(_unixTime);
+        return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()} ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
+    }
+
     function getFormattedLogs(_logs) {
         let tableBody = ''
         // Traverse backwards to keep latest logs at the top
         for (let index = _logs.length-1; index >= 0; index--) {
             tableBody +=
-                `<tr><td><span style="color:green;"><b>${_logs[index].timestamp}</b></span></td><td>${_logs[index].message}</td></tr>`;
+                `<tr><td><span style="color:green;"><b>${getTerminalTimestamp(_logs[index].timestamp)}</b></span></td><td>${_logs[index].message}</td></tr>`;
         }
         let html = `
             <table class="table table-borderless table-dark table-responsive">
