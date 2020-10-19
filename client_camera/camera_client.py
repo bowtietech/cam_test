@@ -61,7 +61,7 @@ while(True):
 
     # Check in with the server for jobs
     try:
-        getRequest = requests.get('http://localhost:3000/jobs', params={'id':CAMERA_ID})
+        getRequest = requests.get('http://server:3000/jobs', params={'id':CAMERA_ID})
 
         # Make sure we get a proper response
         if (200 == getRequest.status_code):
@@ -69,7 +69,7 @@ while(True):
             if ('jobs' in response):
                 if response['jobs'] == 'send_logs':
                     print('Logs request received, responding...')
-                    postRequest = requests.post('http://localhost:3000/', data=makeLogPost())
+                    postRequest = requests.post('http://server:3000/', data=makeLogPost())
                     if 200 == postRequest.status_code:
                         print('Logs upload successful!')
                     else:

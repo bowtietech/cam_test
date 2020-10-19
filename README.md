@@ -19,7 +19,9 @@ In the project root directory, run the command:
 docker-compose up -d
 ```
 
-This will run the program as a daemon.
+This will run the program as a daemon, and build automatically if necessary.
+
+
 
 
 ### Stopping

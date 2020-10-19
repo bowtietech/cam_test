@@ -4,4 +4,6 @@ VOLUME ["/code"]
 ADD . /code
 WORKDIR /code
 
+EXPOSE 3000
+
 CMD ["python", "server.py"]
