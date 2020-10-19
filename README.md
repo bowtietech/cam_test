@@ -1,5 +1,8 @@
 # Faux Camera Exercise
 
+![Screenshot](screenshot.png "App Screenshot")
+
+
 ### Overview
 
 This server is written to handle multiple virtual cameras and clients simultaneously.
