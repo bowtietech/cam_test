@@ -17,7 +17,7 @@ This server is written to handle multiple virtual cameras and clients simultaneo
 - Chrome Browser
 
 
-### Installation and Running
+### Installation and Running (Tested on OSX)
 
 #### Get the code
 
