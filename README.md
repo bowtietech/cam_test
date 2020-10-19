@@ -1,7 +1,9 @@
+# Faux Camera Exercise
 
 ### Overview
 
 This server is written to handle multiple cameras and clients simultaneously.
+
 
 ### Prerequisites
 
@@ -9,19 +11,30 @@ This server is written to handle multiple cameras and clients simultaneously.
 - Git
 - Docker
 - Docker Compose
+- Chrome Browser
+
 
 ### Installation and Running
 
-***Important*** Make sure that port 3000 is not already in use.
+#### Get the code
+
+Check out from git:
+```
+git clone https://github.com/bowtietech/cam_test.git
+```
+
+***Important*** Make sure that port 80 is not already in use.
 
 In the project root directory, run the command:
 ```
+cd cam_test
 docker-compose up -d
 ```
 
 This will run the program as a daemon, and build automatically if necessary.
 
-
+Open Chrome and go to:
+```http://localhost```
 
 
 ### Stopping
@@ -30,6 +43,7 @@ In the project root directory, run the command:
 ```
 docker-compose down
 ```
+
 
 ### Considerations & Deviations From Instructions
 
@@ -53,6 +67,7 @@ docker-compose down
 
 - In the current system, two clients could request and get logs from slightly different times than expected, but the logs are timestamped internally, so shouldn't cause any issues.
 - ***IMPORTANT*** The user's '/logs' request will complete with whatever data is available, but invalidated if not current (contrary to instructions). Leaving the GET request open that long seemed dirty, dirty. 
+
 
 ### References
 
