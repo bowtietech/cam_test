@@ -2,7 +2,7 @@
 
 ### Overview
 
-This server is written to handle multiple cameras and clients simultaneously.
+This server is written to handle multiple virtual cameras and clients simultaneously.
 
 
 ### Prerequisites

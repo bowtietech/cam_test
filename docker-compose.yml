@@ -6,7 +6,14 @@ services:
         ports:
             - "80:3000" 
 
-    camera:
+    camera_1:
+        environment:
+            - CAMERA_ID=camera_1
+            - CAMERA_NAME=Conference Room
         build: ./client_camera      
 
-
+    camera_2:
+        environment:
+            - CAMERA_ID=camera_2
+            - CAMERA_NAME=Loading Dock
+        build: ./client_camera      

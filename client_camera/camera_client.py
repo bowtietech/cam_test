@@ -2,12 +2,13 @@ import requests
 import random
 import json
 import time
+import os
 
 # Sleep time between updates
 PRELOAD_COUNT = 4
 SLEEP_TIME_s = 10
-CAMERA_ID = 'camera_1'
-CAMERA_NAME = 'Conference Room'
+CAMERA_ID = os.getenv('CAMERA_ID')
+CAMERA_NAME = os.getenv('CAMERA_NAME')
 
 responses = [
     'Person detected',
